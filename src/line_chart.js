@@ -32,13 +32,5 @@ Backbone.Charts.LineChart = Backbone.Charts.Chart.extend({
             .rangePoints([0, this.width]);
         
         return this;
-    },
-    
-    setScaleY: function() {
-        this.scaleY = d3.scale.linear()
-            .domain([0, d3.max(this.data)])
-            .range([0, this.height]);
-            
-        return this;
     }
 });

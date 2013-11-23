@@ -1,6 +1,10 @@
 Backbone.Charts = Backbone.Charts || {};
 
 Backbone.Charts.BarChart = Backbone.Charts.Chart.extend({
+    options: {
+        columnPadding: 0.1
+    },
+    
     render: function() {
         var self = this;
         
@@ -30,16 +34,8 @@ Backbone.Charts.BarChart = Backbone.Charts.Chart.extend({
     setScaleX: function() {
         this.scaleX = d3.scale.ordinal()
             .domain(d3.range(this.data.length))
-            .rangeRoundBands([0, this.width], .1);
+            .rangeRoundBands([0, this.width], this.columnPadding);
         
-        return this;
-    },
-    
-    setScaleY: function() {
-        this.scaleY = d3.scale.linear()
-            .domain([0, d3.max(this.data)])
-            .range([0, this.height]);
-            
         return this;
     }
 });
