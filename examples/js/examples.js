@@ -16,4 +16,12 @@ $(document).ready(function() {
         height: 200
     });
     lineChart.render();
+    
+    var pieChart = new Backbone.Charts.PieChart({
+        el: "#pie-chart",
+        data: [1, 2, 3, 4, 5],
+        width: 200,
+        height: 200
+    });
+    pieChart.render();
 });
