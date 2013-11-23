@@ -1,6 +1,12 @@
 Backbone.Charts = Backbone.Charts || {};
 
-Backbone.Charts.PieChart = Backbone.Charts.ArcChart.extend({
+Backbone.Charts.RingChart = Backbone.Charts.ArcChart.extend({
+    options: {
+        innerRadius: function() {
+            return this.radius / 2;
+        }
+    },
+    
     render: function() {
         var svg = d3.select(this.el)
             .append("svg")

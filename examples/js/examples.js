@@ -24,4 +24,12 @@ $(document).ready(function() {
         height: 150
     });
     pieChart.render();
+    
+    var ringChart = new Backbone.Charts.RingChart({
+        el: "#ring-chart",
+        data: [1, 2, 3, 4, 5],
+        width: 300,
+        height: 150
+    });
+    ringChart.render();
 });
