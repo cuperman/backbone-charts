@@ -2,24 +2,34 @@
 <html>
     <head>
         <title>Backbone Chart Examples</title>
+        <link href="css/vendor/bootstrap.min.css" rel="stylesheet" />
     </head>
     <body>
-        <h1>Backbone Charts</h1>
+        <div class="container">
+            <h1>Backbone Charts</h1>
+            
+            <div class="col-md-4">
+                <h2>Bar Chart</h2>
+                <div id="bar-chart"></div>
+            </div>
 
-        <h2>Bar Chart</h2>
-        <div id="bar-chart"></div>
-
-        <h2>Line Chart</h2>
-        <div id="line-chart"></div>
+            <div class="col-md-4">
+                <h2>Line Chart</h2>
+                <div id="line-chart"></div>
+            </div>
         
-        <h2>Pie Chart</h2>
-        <div id="pie-chart"></div>
+            <div class="col-md-4">
+                <h2>Pie Chart</h2>
+                <div id="pie-chart"></div>
+            </div>
+        </div>
 
         <!-- 3rd party libs -->
         <script src="js/vendor/jquery-2.0.3.js"></script>
         <script src="js/vendor/underscore.js"></script>
         <script src="js/vendor/backbone.js"></script>
         <script src="js/vendor/d3.v3.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
 
         <!-- charts source -->
         <script src="../src/chart.js"></script>

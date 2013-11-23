@@ -4,24 +4,24 @@ $(document).ready(function() {
     var barChart = new Backbone.Charts.BarChart({
         el: "#bar-chart",
         data: [1, 2, 3, 4, 5],
-        width: 400,
-        height: 200
+        width: 300,
+        height: 150
     });
     barChart.render();
 
     var lineChart = new Backbone.Charts.LineChart({
         el: "#line-chart",
         data: [1, 2, 3, 4, 5],
-        width: 400,
-        height: 200
+        width: 300,
+        height: 150
     });
     lineChart.render();
     
     var pieChart = new Backbone.Charts.PieChart({
         el: "#pie-chart",
         data: [1, 2, 3, 4, 5],
-        width: 200,
-        height: 200
+        width: 300,
+        height: 150
     });
     pieChart.render();
 });
