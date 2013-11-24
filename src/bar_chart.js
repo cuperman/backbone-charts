@@ -18,14 +18,14 @@ Backbone.Charts.BarChart = Backbone.Charts.Chart.extend({
             .enter()
             .append("rect")
                 .attr("x", function(d, i) {
-                    return self.scaleX(i);
+                    return self.scaleX(self.x(d, i));
                 })
-                .attr("y", function(d) {
-                    return self.scaleY(d);
+                .attr("y", function(d, i) {
+                    return self.scaleY(self.y(d, i));
                 })
                 .attr("width", self.scaleX.rangeBand())
-                .attr("height", function(d) {
-                    return self.paddingTop + self.chartHeight - self.scaleY(d);
+                .attr("height", function(d, i) {
+                    return self.paddingTop + self.chartHeight() - self.scaleY(self.y(d, i));
                 });
                 
         if (this.showAxisX) {
@@ -41,9 +41,9 @@ Backbone.Charts.BarChart = Backbone.Charts.Chart.extend({
     
     setScaleX: function() {
         this.scaleX = d3.scale.ordinal()
-            .domain(d3.range(this.data.length))
+            .domain(this.data.map(this.x))
             .rangeRoundBands(
-                [this.paddingLeft, this.paddingLeft + this.chartWidth],
+                [this.paddingLeft, this.paddingLeft + this.chartWidth()],
                 this.columnPadding,
                 this.columnOuterPadding
             );

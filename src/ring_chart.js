@@ -2,9 +2,7 @@ Backbone.Charts = Backbone.Charts || {};
 
 Backbone.Charts.RingChart = Backbone.Charts.ArcChart.extend({
     options: {
-        innerRadius: function() {
-            return this.radius / 2;
-        }
+        innerRadius: 50
     },
     
     render: function() {

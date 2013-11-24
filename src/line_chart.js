@@ -13,10 +13,10 @@ Backbone.Charts.LineChart = Backbone.Charts.Chart.extend({
             
         var line = d3.svg.line()
             .x(function(d, i) {
-                return self.scaleX(i);
+                return self.scaleX(self.x(d, i));
             })
-            .y(function(d) {
-                return self.scaleY(d);
+            .y(function(d, i) {
+                return self.scaleY(self.y(d, i));
             });
             
         this.svg.append("path")
@@ -37,8 +37,8 @@ Backbone.Charts.LineChart = Backbone.Charts.Chart.extend({
     
     setScaleX: function() {
         this.scaleX = d3.scale.ordinal()
-            .domain(d3.range(this.data.length))
-            .rangePoints([this.paddingLeft, this.paddingLeft + this.chartWidth]);
+            .domain(this.data.map(this.x))
+            .rangePoints([this.paddingLeft, this.paddingLeft + this.chartWidth()]);
         
         return this;
     }

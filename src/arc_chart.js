@@ -5,9 +5,7 @@ Backbone.Charts.ArcChart = Backbone.View.extend({
         data: [],
         width: 400,
         height: 200,
-        radius: function() {
-            return d3.min([this.width, this.height]) / 2;
-        },
+        radius: 100,
         innerRadius: 0
     },
     

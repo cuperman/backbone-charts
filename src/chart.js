@@ -3,18 +3,18 @@ Backbone.Charts = Backbone.Charts || {};
 Backbone.Charts.Chart = Backbone.View.extend({
     baseOptions: {
         data: [],
+        x: function(d, i) {
+            return i;
+        },
+        y: function(d) {
+            return d;
+        },
         width: 400,
         height: 200,
         paddingLeft: 0,
         paddingRight: 0,
         paddingTop: 0,
-        paddingBottom: 0,
-        chartWidth: function() {
-            return this.width - this.paddingLeft - this.paddingRight;
-        },
-        chartHeight: function() {
-            return this.height - this.paddingTop - this.paddingBottom;
-        }
+        paddingBottom: 0
     },
     
     options: {},
@@ -25,29 +25,34 @@ Backbone.Charts.Chart = Backbone.View.extend({
             .extend(options)
             .pick(_.union(Object.keys(this.baseOptions), Object.keys(this.options)))
             .each(function(value, key) {
-                if (_.isFunction(value)) {
-                    this[key] = value.call(this)
-                } else {
-                    this[key] = value;
-                }
+                this[key] = value;
             }, this);
         
         this.setScales();
         this.setAxes();
     },
+    
+    chartWidth: function() {
+        return this.width - this.paddingLeft - this.paddingRight;
+    },
+    
+    chartHeight: function() {
+        return this.height - this.paddingTop - this.paddingBottom;
+    },
 
     setScaleX: function() {
+        var self = this;
         this.scaleX = d3.scale.linear()
-            .domain([0, this.data.length - 1])
-            .range([this.paddingLeft, this.paddingLeft + this.chartWidth]);
+            .domain([0, d3.max(this.data, this.x)])
+            .range([this.paddingLeft, this.paddingLeft + this.chartWidth()]);
         
         return this;
     },
     
     setScaleY: function() {
         this.scaleY = d3.scale.linear()
-            .domain([0, d3.max(this.data)])
-            .range([this.paddingTop + this.chartHeight, this.paddingTop]);
+            .domain([0, d3.max(this.data, this.y)])
+            .range([this.paddingTop + this.chartHeight(), this.paddingTop]);
             
         return this;
     },
@@ -94,7 +99,7 @@ Backbone.Charts.Chart = Backbone.View.extend({
     renderAxisX: function() {
         this.svg.append("g")
             .attr("class", "axis axis-x")
-            .attr("transform", "translate(0," + (this.paddingTop + this.chartHeight) + ")")
+            .attr("transform", "translate(0," + (this.paddingTop + this.chartHeight()) + ")")
             .call(this.axisX);
         
         return this;
