@@ -1,0 +1,28 @@
+.line {
+    fill: none;
+    stroke: #000;
+}
+
+.arc path {
+    fill: black;
+    stroke: #fff;
+}
+
+.axis {
+    font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.axis-x {
+    background-color: blue;
+}
+
+.axis-y {
+    background-color: red;
+}

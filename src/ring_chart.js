@@ -21,9 +21,7 @@ Backbone.Charts.RingChart = Backbone.Charts.ArcChart.extend({
             .attr("transform", "translate(" + this.radius + ", " + this.radius + ")");
                     
         arcs.append("path")
-            .attr("d", this.arc)
-            .style("fill", "black")
-            .style("stroke", "white");
+            .attr("d", this.arc);
         
         return this;
     }

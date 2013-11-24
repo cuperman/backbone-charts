@@ -32,4 +32,36 @@ $(document).ready(function() {
         height: 150
     });
     ringChart.render();
+    
+    var barWithAxes = new Backbone.Charts.BarChart({
+        el: "#bar-with-axes",
+        data: [1, 2, 3, 4, 5],
+        width: 300,
+        height: 150,
+        columnPadding: 0.1,
+        columnOuterPadding: 0.1,
+        paddingLeft: 35,
+        paddingRight: 5,
+        paddingTop: 10,
+        paddingBottom: 25,
+        showAxisX: true,
+        showAxisY: true
+    });
+    barWithAxes.render();
+    
+    var lineWithAxes = new Backbone.Charts.LineChart({
+        el: "#line-with-axes",
+        data: [1, 2, 3, 4, 5],
+        width: 300,
+        height: 150,
+        columnPadding: 0.1,
+        columnOuterPadding: 0.1,
+        paddingLeft: 35,
+        paddingRight: 5,
+        paddingTop: 10,
+        paddingBottom: 25,
+        showAxisX: true,
+        showAxisY: true
+    });
+    lineWithAxes.render();
 });

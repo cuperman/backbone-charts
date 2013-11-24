@@ -2,18 +2,18 @@ Backbone.Charts = Backbone.Charts || {};
 
 Backbone.Charts.BarChart = Backbone.Charts.Chart.extend({
     options: {
-        columnPadding: 0.1
+        columnPadding: 0.1,
+        columnOuterPadding: 0,
+        showAxisX: false,
+        showAxisY: false
     },
     
     render: function() {
         var self = this;
         
-        var svg = d3.select(this.el)
-            .append("svg")
-            .attr("width", this.width)
-            .attr("height", this.height);
+        this.renderSvg();
             
-        svg.selectAll("rect")
+        this.svg.selectAll("rect")
             .data(this.data)
             .enter()
             .append("rect")
@@ -21,12 +21,20 @@ Backbone.Charts.BarChart = Backbone.Charts.Chart.extend({
                     return self.scaleX(i);
                 })
                 .attr("y", function(d) {
-                    return self.height - self.scaleY(d);
+                    return self.scaleY(d);
                 })
                 .attr("width", self.scaleX.rangeBand())
                 .attr("height", function(d) {
-                    return self.scaleY(d);
+                    return self.paddingTop + self.chartHeight - self.scaleY(d);
                 });
+                
+        if (this.showAxisX) {
+            this.renderAxisX();
+        }
+        
+        if (this.showAxisY) {
+            this.renderAxisY();
+        }
                 
         return this;
     },
@@ -34,7 +42,11 @@ Backbone.Charts.BarChart = Backbone.Charts.Chart.extend({
     setScaleX: function() {
         this.scaleX = d3.scale.ordinal()
             .domain(d3.range(this.data.length))
-            .rangeRoundBands([0, this.width], this.columnPadding);
+            .rangeRoundBands(
+                [this.paddingLeft, this.paddingLeft + this.chartWidth],
+                this.columnPadding,
+                this.columnOuterPadding
+            );
         
         return this;
     }
