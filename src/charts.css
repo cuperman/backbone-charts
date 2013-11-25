@@ -18,3 +18,9 @@
     stroke: #000;
     shape-rendering: crispEdges;
 }
+
+line.grid {
+    fill: none;
+    stroke: #aaa;
+    shape-rendering: crispEdges;
+}

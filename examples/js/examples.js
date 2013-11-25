@@ -1,42 +1,38 @@
 $(document).ready(function() {
     'use strict';
 
-    var barChart = new Backbone.Charts.BarChart({
+    new Backbone.Charts.BarChart({
         el: "#bar-chart",
         data: [1, 2, 3, 4, 5],
         width: 300,
         height: 150
-    });
-    barChart.render();
+    }).render();
 
-    var lineChart = new Backbone.Charts.LineChart({
+    new Backbone.Charts.LineChart({
         el: "#line-chart",
         data: [1, 2, 3, 4, 5],
         width: 300,
         height: 150
-    });
-    lineChart.render();
+    }).render();
     
-    var pieChart = new Backbone.Charts.PieChart({
+    new Backbone.Charts.PieChart({
         el: "#pie-chart",
         data: [1, 2, 3, 4, 5],
         width: 300,
         height: 150,
         radius: 75
-    });
-    pieChart.render();
+    }).render();
     
-    var ringChart = new Backbone.Charts.RingChart({
+    new Backbone.Charts.RingChart({
         el: "#ring-chart",
         data: [1, 2, 3, 4, 5],
         width: 300,
         height: 150,
         radius: 75,
         innerRadius: 37.5
-    });
-    ringChart.render();
+    }).render();
     
-    var barWithAxes = new Backbone.Charts.BarChart({
+    new Backbone.Charts.BarChart({
         el: "#bar-with-axes",
         data: [1, 2, 3, 4, 5],
         width: 300,
@@ -49,10 +45,9 @@ $(document).ready(function() {
         paddingBottom: 25,
         showAxisX: true,
         showAxisY: true
-    });
-    barWithAxes.render();
-    
-    var lineWithAxes = new Backbone.Charts.LineChart({
+    }).render();
+
+    new Backbone.Charts.LineChart({
         el: "#line-with-axes",
         data: [1, 2, 3, 4, 5],
         width: 300,
@@ -65,10 +60,9 @@ $(document).ready(function() {
         paddingBottom: 25,
         showAxisX: true,
         showAxisY: true
-    });
-    lineWithAxes.render();
+    }).render();
     
-    var barCustomData = new Backbone.Charts.BarChart({
+    new Backbone.Charts.BarChart({
         el: "#bar-custom-data",
         data: [
             {letter: 'A', count: 102},
@@ -95,10 +89,9 @@ $(document).ready(function() {
         paddingBottom: 25,
         showAxisX: true,
         showAxisY: true
-    });
-    barCustomData.render();
+    }).render();
     
-    var lineCustomData = new Backbone.Charts.LineChart({
+    new Backbone.Charts.LineChart({
         el: "#line-custom-data",
         data: [
             {letter: 'A', count: 102},
@@ -125,10 +118,9 @@ $(document).ready(function() {
         paddingBottom: 25,
         showAxisX: true,
         showAxisY: true
-    });
-    lineCustomData.render();
-    
-    var lineWithDates = new Backbone.Charts.LineChart({
+    }).render();
+
+    new Backbone.Charts.LineChart({
         el: "#line-with-dates",
         data: [
             {date: new Date(2013, 11, 1), count: 102},
@@ -158,6 +150,38 @@ $(document).ready(function() {
         showAxisY: true,
         tickCountX: 3,
         tickFormatX: d3.time.format("%x")
-    });
-    lineWithDates.render();
+    }).render();
+
+    new Backbone.Charts.BarChart({
+        el: "#bar-with-grid",
+        data: [1, 2, 3, 4, 5],
+        width: 300,
+        height: 150,
+        columnPadding: 0.1,
+        columnOuterPadding: 0.1,
+        paddingLeft: 35,
+        paddingRight: 5,
+        paddingTop: 10,
+        paddingBottom: 25,
+        showAxisX: true,
+        showAxisY: true,
+        showGridHorizontal: true
+    }).render();
+
+    new Backbone.Charts.LineChart({
+        el: "#line-with-grid",
+        data: [1, 2, 3, 4, 5],
+        width: 300,
+        height: 150,
+        columnPadding: 0.1,
+        columnOuterPadding: 0.1,
+        paddingLeft: 35,
+        paddingRight: 5,
+        paddingTop: 10,
+        paddingBottom: 25,
+        showAxisX: true,
+        showAxisY: true,
+        showGridHorizontal: true
+    }).render();
+    
 });

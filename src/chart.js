@@ -20,15 +20,15 @@ Backbone.Charts.Chart = Backbone.View.extend({
         tickCountX: null,
         tickCountY: null,
         tickFormatX: null,
-        tickFormatY: null
+        tickFormatY: null,
+        gridTickCount: 4
     },
     
     options: {},
     
     initialize: function(options) {
-        _.chain(this.baseOptions)
-            .extend(this.options)
-            .extend(options)
+        _.chain({})
+            .extend(this.baseOptions, this.options, options)
             .pick(_.union(Object.keys(this.baseOptions), Object.keys(this.options)))
             .each(function(value, key) {
                 this[key] = value;
@@ -178,6 +178,26 @@ Backbone.Charts.Chart = Backbone.View.extend({
             .attr("class", "axis axis-y")
             .attr("transform", "translate(" + this.paddingLeft + ",0)")
             .call(this.axisY);
+            
+        return this;
+    },
+    
+    renderGridHorizontal: function() {
+        var self = this;
+        
+        this.svg.selectAll("line.grid")
+            .data(this.scaleY.ticks(this.gridTickCount))
+            .enter()
+            .append("line")
+                .attr("class", "grid")
+                .attr("x1", this.paddingLeft)
+                .attr("x2", this.paddingLeft + this.chartWidth())
+                .attr("y1", function(d, i) { 
+                    return self.scaleY(self.y(d, i));
+                })
+                .attr("y2", function(d, i) { 
+                    return self.scaleY(self.y(d, i)); 
+                });
             
         return this;
     },

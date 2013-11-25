@@ -7,13 +7,18 @@ Backbone.Charts.BarChart = Backbone.Charts.Chart.extend({
         columnPadding: 0.1,
         columnOuterPadding: 0,
         showAxisX: false,
-        showAxisY: false
+        showAxisY: false,
+        showGridHorizontal: false
     },
     
     render: function() {
         var self = this;
         
         this.renderSvg();
+        
+        if (this.showGridHorizontal) {
+            this.renderGridHorizontal();
+        }
             
         this.svg.selectAll("rect")
             .data(this.data)
@@ -37,7 +42,7 @@ Backbone.Charts.BarChart = Backbone.Charts.Chart.extend({
         if (this.showAxisY) {
             this.renderAxisY();
         }
-                
+               
         return this;
     }
 });

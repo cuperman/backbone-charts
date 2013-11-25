@@ -5,13 +5,18 @@ Backbone.Charts.LineChart = Backbone.Charts.Chart.extend({
         scaleTypeX: "ordinalPoints",
         scaleTypeY: "linear",
         showAxisX: false,
-        showAxisY: false
+        showAxisY: false,
+        showGridHorizontal: false
     },
     
     render: function() {
         var self = this;
             
         this.renderSvg();
+        
+        if (this.showGridHorizontal) {
+            this.renderGridHorizontal();
+        }
             
         var line = d3.svg.line()
             .x(function(d, i) {
