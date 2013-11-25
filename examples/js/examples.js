@@ -127,4 +127,37 @@ $(document).ready(function() {
         showAxisY: true
     });
     lineCustomData.render();
+    
+    var lineWithDates = new Backbone.Charts.LineChart({
+        el: "#line-with-dates",
+        data: [
+            {date: new Date(2013, 11, 1), count: 102},
+            {date: new Date(2013, 11, 2), count: 39},
+            {date: new Date(2013, 11, 3), count: 24},
+            {date: new Date(2013, 11, 4), count: 124},
+            {date: new Date(2013, 11, 5), count: 98},
+            {date: new Date(2013, 11, 6), count: 67},
+            {date: new Date(2013, 11, 7), count: 86}
+        ],
+        x: function(d) {
+            return d.date;
+        },
+        y: function(d) {
+            return d.count;
+        },
+        width: 300,
+        height: 150,
+        scaleTypeX: "time",
+        columnPadding: 0.1,
+        columnOuterPadding: 0.1,
+        paddingLeft: 35,
+        paddingRight: 30,
+        paddingTop: 10,
+        paddingBottom: 25,
+        showAxisX: true,
+        showAxisY: true,
+        tickCountX: 3,
+        tickFormatX: d3.time.format("%x")
+    });
+    lineWithDates.render();
 });

@@ -2,6 +2,8 @@ Backbone.Charts = Backbone.Charts || {};
 
 Backbone.Charts.LineChart = Backbone.Charts.Chart.extend({
     options: {
+        scaleTypeX: "ordinalPoints",
+        scaleTypeY: "linear",
         showAxisX: false,
         showAxisY: false
     },
@@ -32,14 +34,6 @@ Backbone.Charts.LineChart = Backbone.Charts.Chart.extend({
             this.renderAxisY();
         }
                 
-        return this;
-    },
-    
-    setScaleX: function() {
-        this.scaleX = d3.scale.ordinal()
-            .domain(this.data.map(this.x))
-            .rangePoints([this.paddingLeft, this.paddingLeft + this.chartWidth()]);
-        
         return this;
     }
 });
