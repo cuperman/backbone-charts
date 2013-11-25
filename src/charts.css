@@ -18,11 +18,3 @@
     stroke: #000;
     shape-rendering: crispEdges;
 }
-
-.axis-x {
-    background-color: blue;
-}
-
-.axis-y {
-    background-color: red;
-}
