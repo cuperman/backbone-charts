@@ -23,9 +23,9 @@ Backbone.Charts.Chart = Backbone.View.extend({
         tickFormatY: null,
         gridTickCount: 4
     },
-    
+
     options: {},
-    
+
     initialize: function(options) {
         _.chain({})
             .extend(this.baseOptions, this.options, options)
@@ -33,11 +33,11 @@ Backbone.Charts.Chart = Backbone.View.extend({
             .each(function(value, key) {
                 this[key] = value;
             }, this);
-        
+
         this.setScales();
         this.setAxes();
     },
-    
+
     chartWidth: function() {
         return this.width - this.paddingLeft - this.paddingRight;
     },
@@ -178,13 +178,18 @@ Backbone.Charts.Chart = Backbone.View.extend({
             .attr("class", "axis axis-y")
             .attr("transform", "translate(" + this.paddingLeft + ",0)")
             .call(this.axisY);
-            
+
         return this;
     },
-    
+
     renderGridHorizontal: function() {
-        var self = this;
-        
+        var self = this,
+            ticks = this.scaleY.ticks(this.gridTickCount);
+
+        var gridScaleY = d3.scale.linear()
+            .domain([d3.min(ticks), d3.max(ticks)])
+            .range([this.paddingTop, this.paddingTop + this.chartHeight()]);
+
         this.svg.selectAll("line.grid")
             .data(this.scaleY.ticks(this.gridTickCount))
             .enter()
@@ -192,16 +197,16 @@ Backbone.Charts.Chart = Backbone.View.extend({
                 .attr("class", "grid")
                 .attr("x1", this.paddingLeft)
                 .attr("x2", this.paddingLeft + this.chartWidth())
-                .attr("y1", function(d, i) { 
-                    return self.scaleY(self.y(d, i));
+                .attr("y1", function(d, i) {
+                    return gridScaleY(d);
                 })
-                .attr("y2", function(d, i) { 
-                    return self.scaleY(self.y(d, i)); 
+                .attr("y2", function(d, i) {
+                    return gridScaleY(d);
                 });
-            
+
         return this;
     },
-    
+
     render: function() {
         return this;
     }
