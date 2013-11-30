@@ -19,7 +19,7 @@
     shape-rendering: crispEdges;
 }
 
-line.grid {
+.grid {
     fill: none;
     stroke: #aaa;
     shape-rendering: crispEdges;
