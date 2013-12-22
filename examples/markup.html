@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Backbone Chart Markup Examples</title>
+        <link href="css/vendor/bootstrap.min.css" rel="stylesheet" />
+        <link href="../src/charts.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>Backbone Charts <small>Options defined in markup</small></h1>
+            </div>
+
+            <h2>Basic Charts</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>Bar Chart</h3>
+                    <div class="markup-chart"
+                         data-type="bar"
+                         data-set="simple"
+                         data-width="300"
+                         data-height="150"></div>
+                </div>
+
+                <div class="col-md-4">
+                    <h3>Line Chart</h3>
+                    <div class="markup-chart"
+                         data-type="line"
+                         data-set="simple"
+                         data-width="300"
+                         data-height="150"></div>
+                </div>
+
+                <div class="col-md-4">
+                    <h3>Multi-Line Chart</h3>
+                    <div class="markup-chart"
+                         data-type="multi-line"
+                         data-set="multi"
+                         data-attr-y="y1,y2"
+                         data-width="300"
+                         data-height="150"></div>
+                </div>
+
+                <div class="col-md-4">
+                    <h3>Pie Chart</h3>
+                    <div class="markup-chart"
+                         data-type="pie"
+                         data-set="simple"
+                         data-width="300"
+                         data-height="150"
+                         data-radius="75"></div>
+                </div>
+
+                <div class="col-md-4">
+                    <h3>Ring Chart</h3>
+                    <div class="markup-chart"
+                         data-type="pie"
+                         data-set="simple"
+                         data-width="300"
+                         data-height="150"
+                         data-radius="75"
+                         data-radius-inner="37.5"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3rd party libs -->
+        <script src="js/vendor/jquery-2.0.3.js"></script>
+        <script src="js/vendor/underscore.js"></script>
+        <script src="js/vendor/backbone.js"></script>
+        <script src="js/vendor/d3.v3.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+
+        <!-- charts source -->
+        <script src="../src/chart.js"></script>
+        <script src="../src/bar_chart.js"></script>
+        <script src="../src/line_chart.js"></script>
+        <script src="../src/multi_line_chart.js"></script>
+        <script src="../src/arc_chart.js"></script>
+        <script src="../src/pie_chart.js"></script>
+        <script src="../src/ring_chart.js"></script>
+
+        <!-- example source -->
+        <script src="js/markup.js"></script>
+    </body>
+</html>
