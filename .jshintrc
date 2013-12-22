@@ -1,7 +1,7 @@
 {
-    globals: {
-        $: true,
-        _: true,
-        Backbone: true
+    "globals": {
+        "$": true,
+        "_": true,
+        "Backbone": true
     }
 }
