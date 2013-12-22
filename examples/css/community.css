@@ -1,0 +1,19 @@
+.line {
+    stroke: #07b2e0;
+    stroke-width: 2px;
+}
+
+.grid {
+    stroke: #ddd;
+}
+
+.axis {
+    font-size: 14px;
+    line-height: 20px;
+    color: #333;
+}
+
+.axis path,
+.axis line {
+    stroke: #aaa;
+}

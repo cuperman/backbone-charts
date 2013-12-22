@@ -1,99 +1,5 @@
 Backbone.Charts = Backbone.Charts || {};
 
-Backbone.Charts.ArcChart = Backbone.View.extend({
-    baseOptions: {
-        data: [],
-        width: 400,
-        height: 200,
-        radius: 100,
-        innerRadius: 0
-    },
-
-    options: {},
-
-    initialize: function(options) {
-        _.chain(this.baseOptions)
-            .extend(this.options)
-            .extend(options)
-            .pick(_.union(Object.keys(this.baseOptions), Object.keys(this.options)))
-            .each(function(value, key) {
-                if (_.isFunction(value)) {
-                    this[key] = value.call(this);
-                } else {
-                    this[key] = value;
-                }
-            }, this);
-
-        this.setLayout();
-        this.setArc();
-    },
-
-    setLayout: function() {
-        this.layout = d3.layout.pie()
-            .value(function(d) {
-                return d;
-            });
-    },
-
-    setArc: function() {
-        this.arc = d3.svg.arc()
-            .outerRadius(this.radius)
-            .innerRadius(this.innerRadius);
-    },
-
-    render: function() {
-        return this;
-    }
-});
-;Backbone.Charts = Backbone.Charts || {};
-
-Backbone.Charts.BarChart = Backbone.Charts.Chart.extend({
-    options: {
-        scaleTypeX: "ordinalBands",
-        scaleTypeY: "linear",
-        columnPadding: 0.1,
-        columnOuterPadding: 0,
-        showAxisX: false,
-        showAxisY: false,
-        showGridHorizontal: false
-    },
-    
-    render: function() {
-        var self = this;
-        
-        this.renderSvg();
-        
-        if (this.showGridHorizontal) {
-            this.renderGridHorizontal();
-        }
-            
-        this.svg.selectAll("rect")
-            .data(this.data)
-            .enter()
-            .append("rect")
-                .attr("x", function(d, i) {
-                    return self.scaleX(self.x(d, i));
-                })
-                .attr("y", function(d, i) {
-                    return self.scaleY(self.y(d, i));
-                })
-                .attr("width", self.scaleX.rangeBand())
-                .attr("height", function(d, i) {
-                    return self.paddingTop + self.chartHeight() - self.scaleY(self.y(d, i));
-                });
-                
-        if (this.showAxisX) {
-            this.renderAxisX();
-        }
-        
-        if (this.showAxisY) {
-            this.renderAxisY();
-        }
-               
-        return this;
-    }
-});;Backbone.Charts = Backbone.Charts || {};
-
 Backbone.Charts.Chart = Backbone.View.extend({
     baseOptions: {
         data: [],
@@ -321,7 +227,104 @@ Backbone.Charts.Chart = Backbone.View.extend({
         return this;
     }
 });
-;Backbone.Charts = Backbone.Charts || {};
+
+Backbone.Charts = Backbone.Charts || {};
+
+Backbone.Charts.ArcChart = Backbone.View.extend({
+    baseOptions: {
+        data: [],
+        width: 400,
+        height: 200,
+        radius: 100,
+        innerRadius: 0
+    },
+
+    options: {},
+
+    initialize: function(options) {
+        _.chain(this.baseOptions)
+            .extend(this.options)
+            .extend(options)
+            .pick(_.union(Object.keys(this.baseOptions), Object.keys(this.options)))
+            .each(function(value, key) {
+                if (_.isFunction(value)) {
+                    this[key] = value.call(this);
+                } else {
+                    this[key] = value;
+                }
+            }, this);
+
+        this.setLayout();
+        this.setArc();
+    },
+
+    setLayout: function() {
+        this.layout = d3.layout.pie()
+            .value(function(d) {
+                return d;
+            });
+    },
+
+    setArc: function() {
+        this.arc = d3.svg.arc()
+            .outerRadius(this.radius)
+            .innerRadius(this.innerRadius);
+    },
+
+    render: function() {
+        return this;
+    }
+});
+
+Backbone.Charts = Backbone.Charts || {};
+
+Backbone.Charts.BarChart = Backbone.Charts.Chart.extend({
+    options: {
+        scaleTypeX: "ordinalBands",
+        scaleTypeY: "linear",
+        columnPadding: 0.1,
+        columnOuterPadding: 0,
+        showAxisX: false,
+        showAxisY: false,
+        showGridHorizontal: false
+    },
+    
+    render: function() {
+        var self = this;
+        
+        this.renderSvg();
+        
+        if (this.showGridHorizontal) {
+            this.renderGridHorizontal();
+        }
+            
+        this.svg.selectAll("rect")
+            .data(this.data)
+            .enter()
+            .append("rect")
+                .attr("x", function(d, i) {
+                    return self.scaleX(self.x(d, i));
+                })
+                .attr("y", function(d, i) {
+                    return self.scaleY(self.y(d, i));
+                })
+                .attr("width", self.scaleX.rangeBand())
+                .attr("height", function(d, i) {
+                    return self.paddingTop + self.chartHeight() - self.scaleY(self.y(d, i));
+                });
+                
+        if (this.showAxisX) {
+            this.renderAxisX();
+        }
+        
+        if (this.showAxisY) {
+            this.renderAxisY();
+        }
+               
+        return this;
+    }
+});
+Backbone.Charts = Backbone.Charts || {};
 
 Backbone.Charts.LineChart = Backbone.Charts.Chart.extend({
     options: {
@@ -364,7 +367,8 @@ Backbone.Charts.LineChart = Backbone.Charts.Chart.extend({
                 
         return this;
     }
-});;Backbone.Charts = Backbone.Charts || {};
+});
+Backbone.Charts = Backbone.Charts || {};
 
 Backbone.Charts.MultiLineChart = Backbone.Charts.Chart.extend({
     options: {
@@ -428,7 +432,8 @@ Backbone.Charts.MultiLineChart = Backbone.Charts.Chart.extend({
         return this;
     }
 });
-;Backbone.Charts = Backbone.Charts || {};
+
+Backbone.Charts = Backbone.Charts || {};
 
 Backbone.Charts.PieChart = Backbone.Charts.ArcChart.extend({
     render: function() {
@@ -449,7 +454,8 @@ Backbone.Charts.PieChart = Backbone.Charts.ArcChart.extend({
         
         return this;
     }
-});;Backbone.Charts = Backbone.Charts || {};
+});
+Backbone.Charts = Backbone.Charts || {};
 
 Backbone.Charts.RingChart = Backbone.Charts.ArcChart.extend({
     options: {

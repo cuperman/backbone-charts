@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Community Dashboard Charts</title>
+        <link href="css/vendor/bootstrap.min.css" rel="stylesheet" />
+        <link href="../src/charts.css" rel="stylesheet" />
+        <link href="css/community.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>Community Dashboard Charts</h1>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>WAM Rank</h3>
+                    <div id="wam-chart"></div>
+
+                    <h3>Pageviews</h3>
+                    <div id="pageviews-chart"></div>
+
+                    <h3>Contributions</h3>
+                    <div id="contributions-chart"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3rd party libs -->
+        <script src="js/vendor/jquery-2.0.3.js"></script>
+        <script src="js/vendor/underscore.js"></script>
+        <script src="js/vendor/backbone.js"></script>
+        <script src="js/vendor/d3.v3.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+
+        <!-- charts source -->
+        <script src="../dist/backbone.charts.js"></script>
+
+        <!-- example source -->
+        <script src="js/community.js"></script>
+    </body>
+</html>

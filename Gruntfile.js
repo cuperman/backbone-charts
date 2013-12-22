@@ -10,11 +10,11 @@ module.exports = function(grunt) {
         },
 
         concat: {
-            options: {
-                separator: ';'
-            },
             dist: {
-                src: ['src/**/*.js'],
+                src: [
+                    'src/chart.js', 'src/arc_chart',
+                    'src/*_chart.js'
+                ],
                 dest: 'dist/<%= pkg.name %>.js'
             }
         },
