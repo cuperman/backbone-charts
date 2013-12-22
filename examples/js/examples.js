@@ -14,7 +14,28 @@ $(document).ready(function() {
         width: 300,
         height: 150
     }).render();
-    
+
+    new Backbone.Charts.MultiLineChart({
+        el: "#multi-line-chart",
+        data: [
+            { y1:  4, y2:  1 },
+            { y1:  8, y2:  4 },
+            { y1: 12, y2:  9 },
+            { y1: 16, y2: 16 },
+            { y1: 20, y2: 25 }
+        ],
+        y: [
+            function(d) {
+                return d.y1;
+            },
+            function(d) {
+                return d.y2;
+            }
+        ],
+        width: 300,
+        height: 150
+    }).render();
+
     new Backbone.Charts.PieChart({
         el: "#pie-chart",
         data: [1, 2, 3, 4, 5],
@@ -22,7 +43,7 @@ $(document).ready(function() {
         height: 150,
         radius: 75
     }).render();
-    
+
     new Backbone.Charts.RingChart({
         el: "#ring-chart",
         data: [1, 2, 3, 4, 5],
@@ -31,7 +52,7 @@ $(document).ready(function() {
         radius: 75,
         innerRadius: 37.5
     }).render();
-    
+
     new Backbone.Charts.BarChart({
         el: "#bar-with-axes",
         data: [1, 2, 3, 4, 5],

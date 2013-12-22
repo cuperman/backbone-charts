@@ -45,6 +45,22 @@ Backbone.Charts.Chart = Backbone.View.extend({
     chartHeight: function() {
         return this.height - this.paddingTop - this.paddingBottom;
     },
+
+    minX: function() {
+        return d3.min(this.data, this.x);
+    },
+
+    minY: function() {
+        return d3.min(this.data, this.y);
+    },
+    
+    maxX: function() {
+        return d3.max(this.data, this.x);
+    },
+    
+    maxY: function() {
+        return d3.max(this.data, this.y);
+    },
     
     scaleXOrdinalPoints: function() {
         return d3.scale.ordinal()
@@ -61,22 +77,22 @@ Backbone.Charts.Chart = Backbone.View.extend({
                 this.columnOuterPadding
             );
     },
-    
+
     scaleXLinear: function() {
         return d3.scale.linear()
-            .domain([0, d3.max(this.data, this.x)])
+            .domain([0, this.maxX()])
             .range([this.paddingLeft, this.paddingLeft + this.chartWidth()]);
     },
-    
+
     scaleXTime: function() {
         return d3.time.scale()
-            .domain([d3.min(this.data, this.x), d3.max(this.data, this.x)])
+            .domain([this.minX(), this.maxX()])
             .range([this.paddingLeft, this.paddingLeft + this.chartWidth()]);
     },
     
     scaleYLinear: function() {
         return d3.scale.linear()
-            .domain([0, d3.max(this.data, this.y)])
+            .domain([0, this.maxY()])
             .range([this.paddingTop + this.chartHeight(), this.paddingTop]);
     },
 
