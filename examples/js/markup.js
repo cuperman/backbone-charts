@@ -10,7 +10,7 @@ $(document).ready(function() {
             { y1: 16, y2: 16 },
             { y1: 20, y2: 25 }
         ]
-    }
+    };
 
     $(".markup-chart").each(function(index, el) {
         var $el = $(el),
@@ -34,7 +34,7 @@ $(document).ready(function() {
         if (attrX) {
             options.x = function(d) {
                 return d[attrX];
-            }
+            };
         }
         if (attrY) {
             if (chartType === "multi-line") {
@@ -46,7 +46,7 @@ $(document).ready(function() {
             } else {
                 options.y = function(d) {
                     return d[attrY];
-                }
+                };
             }
         }
 

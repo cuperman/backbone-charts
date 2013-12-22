@@ -8,9 +8,9 @@ Backbone.Charts.ArcChart = Backbone.View.extend({
         radius: 100,
         innerRadius: 0
     },
-    
+
     options: {},
-    
+
     initialize: function(options) {
         _.chain(this.baseOptions)
             .extend(this.options)
@@ -18,12 +18,12 @@ Backbone.Charts.ArcChart = Backbone.View.extend({
             .pick(_.union(Object.keys(this.baseOptions), Object.keys(this.options)))
             .each(function(value, key) {
                 if (_.isFunction(value)) {
-                    this[key] = value.call(this)
+                    this[key] = value.call(this);
                 } else {
                     this[key] = value;
                 }
             }, this);
-        
+
         this.setLayout();
         this.setArc();
     },

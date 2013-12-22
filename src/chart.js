@@ -151,7 +151,7 @@ Backbone.Charts.Chart = Backbone.View.extend({
     setAxisY: function() {
         this.axisY = d3.svg.axis()
             .scale(this.scaleY)
-            .orient("left")
+            .orient("left");
             
         if (this.tickCountY) {
             this.axisY.ticks(this.tickCountY);
