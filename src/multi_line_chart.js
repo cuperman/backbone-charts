@@ -34,8 +34,9 @@ Backbone.Charts.MultiLineChart = Backbone.Charts.Chart.extend({
             this.renderGridHorizontal();
         }
 
-        _.each(this.y, function(y) {
-            var self = this;
+        _.each(this.y, function(y, i) {
+            var self = this,
+                count = i + 1;
 
             var line = d3.svg.line()
                 .x(function(d, i) {
@@ -48,7 +49,7 @@ Backbone.Charts.MultiLineChart = Backbone.Charts.Chart.extend({
             this.svg.append("path")
                 .datum(this.data)
                 .attr("d", line)
-                .attr("class", "line");
+                .attr("class", "line line-y" + count);
         }, this);
 
         if (this.showAxisX) {
