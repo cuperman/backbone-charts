@@ -140,6 +140,45 @@ $(document).ready(function() {
         showAxisX: true,
         showAxisY: true
     }).render();
+    
+    new Backbone.Charts.PieChart({
+        el: "#pie-custom-data",
+        data: [
+            {letter: 'A', count: 102},
+            {letter: 'B', count: 39},
+            {letter: 'C', count: 24},
+            {letter: 'D', count: 124},
+            {letter: 'E', count: 98},
+            {letter: 'F', count: 67},
+            {letter: 'G', count: 86}
+        ],
+        value: function(d) {
+            return d.count
+        },
+        width: 300,
+        height: 150,
+        radius: 75
+    }).render();
+    
+    new Backbone.Charts.RingChart({
+        el: "#ring-custom-data",
+        data: [
+            {letter: 'A', count: 102},
+            {letter: 'B', count: 39},
+            {letter: 'C', count: 24},
+            {letter: 'D', count: 124},
+            {letter: 'E', count: 98},
+            {letter: 'F', count: 67},
+            {letter: 'G', count: 86}
+        ],
+        value: function(d) {
+            return d.count
+        },
+        width: 300,
+        height: 150,
+        radius: 75,
+        innerRadius: 37.5
+    }).render();
 
     new Backbone.Charts.LineChart({
         el: "#line-with-dates",

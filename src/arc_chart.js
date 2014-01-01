@@ -3,6 +3,9 @@ Backbone.Charts = Backbone.Charts || {};
 Backbone.Charts.ArcChart = Backbone.View.extend({
     baseOptions: {
         data: [],
+        value: function(d) {
+            return d;
+        },
         width: 400,
         height: 200,
         radius: 100,
@@ -12,16 +15,11 @@ Backbone.Charts.ArcChart = Backbone.View.extend({
     options: {},
 
     initialize: function(options) {
-        _.chain(this.baseOptions)
-            .extend(this.options)
-            .extend(options)
+        _.chain({})
+            .extend(this.baseOptions, this.options, options)
             .pick(_.union(Object.keys(this.baseOptions), Object.keys(this.options)))
             .each(function(value, key) {
-                if (_.isFunction(value)) {
-                    this[key] = value.call(this);
-                } else {
-                    this[key] = value;
-                }
+                this[key] = value;
             }, this);
 
         this.setLayout();
@@ -30,9 +28,7 @@ Backbone.Charts.ArcChart = Backbone.View.extend({
 
     setLayout: function() {
         this.layout = d3.layout.pie()
-            .value(function(d) {
-                return d;
-            });
+            .value(this.value);
     },
 
     setArc: function() {
