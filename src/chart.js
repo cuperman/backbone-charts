@@ -62,17 +62,33 @@ Backbone.Charts.Chart = Backbone.View.extend({
         return d3.max(this.data, this.y);
     },
     
+    chartLeft: function() {
+        return this.paddingLeft;
+    },
+    
+    chartRight: function() {
+        return this.paddingLeft + this.chartWidth();
+    },
+    
+    chartTop: function() {
+        return this.paddingTop;
+    },
+    
+    chartBottom: function() {
+        return this.paddingTop + this.chartHeight();
+    },
+    
     scaleXOrdinalPoints: function() {
         return d3.scale.ordinal()
             .domain(this.data.map(this.x))
-            .rangePoints([this.paddingLeft, this.paddingLeft + this.chartWidth()]);
+            .rangePoints([this.chartLeft(), this.chartRight()]);
     },
     
     scaleXOrdinalBands: function() {
         return d3.scale.ordinal()
             .domain(this.data.map(this.x))
             .rangeRoundBands(
-                [this.paddingLeft, this.paddingLeft + this.chartWidth()],
+                [this.chartLeft(), this.chartRight()],
                 this.columnPadding,
                 this.columnOuterPadding
             );
@@ -81,19 +97,19 @@ Backbone.Charts.Chart = Backbone.View.extend({
     scaleXLinear: function() {
         return d3.scale.linear()
             .domain([0, this.maxX()])
-            .range([this.paddingLeft, this.paddingLeft + this.chartWidth()]);
+            .range([this.chartLeft(), this.chartRight()]);
     },
 
     scaleXTime: function() {
         return d3.time.scale()
             .domain([this.minX(), this.maxX()])
-            .range([this.paddingLeft, this.paddingLeft + this.chartWidth()]);
+            .range([this.chartLeft(), this.chartRight()]);
     },
     
     scaleYLinear: function() {
         return d3.scale.linear()
             .domain([0, this.maxY()])
-            .range([this.paddingTop + this.chartHeight(), this.paddingTop]);
+            .range([this.chartBottom(), this.chartTop()]);
     },
 
     setScaleX: function() {
@@ -171,11 +187,31 @@ Backbone.Charts.Chart = Backbone.View.extend({
         return this;
     },
     
+    invertX: function(value) {
+        if (this.scaleTypeX.match(/^ordinal.*/)) {
+            var offset = value - this.chartLeft(),
+                normal = offset / this.chartWidth();
+                
+            return normal * this.data.length;
+        } else {
+            return this.scaleX.invert(value);
+        }
+    },
+    
+    // returns the datum closest to the specified x value
+    findClosestDatum: function(x) {
+        return _.find(this.data, function(datum) {
+            return x < this.x(datum);
+        }, this);
+    },
+    
     renderSvg: function() {
         this.svg = d3.select(this.el)
             .append("svg")
             .attr("width", this.width)
             .attr("height", this.height);
+            
+        this.bindSvgListeners();
             
         return this;
     },
@@ -183,7 +219,7 @@ Backbone.Charts.Chart = Backbone.View.extend({
     renderAxisX: function() {
         this.svg.append("g")
             .attr("class", "axis axis-x")
-            .attr("transform", "translate(0," + (this.paddingTop + this.chartHeight()) + ")")
+            .attr("transform", "translate(0," + this.chartBottom() + ")")
             .call(this.axisX);
         
         return this;
@@ -192,7 +228,7 @@ Backbone.Charts.Chart = Backbone.View.extend({
     renderAxisY: function() {
         this.svg.append("g")
             .attr("class", "axis axis-y")
-            .attr("transform", "translate(" + this.paddingLeft + ",0)")
+            .attr("transform", "translate(" + this.chartLeft() + ",0)")
             .call(this.axisY);
 
         return this;
@@ -204,15 +240,15 @@ Backbone.Charts.Chart = Backbone.View.extend({
 
         var gridScaleY = d3.scale.linear()
             .domain([d3.min(ticks), d3.max(ticks)])
-            .range([this.paddingTop, this.paddingTop + this.chartHeight()]);
+            .range([this.chartTop(), this.chartBottom()]);
 
         this.svg.selectAll("line.grid")
             .data(this.scaleY.ticks(this.gridTickCount))
             .enter()
             .append("line")
                 .attr("class", "grid")
-                .attr("x1", this.paddingLeft)
-                .attr("x2", this.paddingLeft + this.chartWidth())
+                .attr("x1", this.chartLeft())
+                .attr("x2", this.chartRight())
                 .attr("y1", function(d, i) {
                     return gridScaleY(d);
                 })
@@ -225,5 +261,32 @@ Backbone.Charts.Chart = Backbone.View.extend({
 
     render: function() {
         return this;
+    },
+    
+    bindSvgListeners: function() {
+        var self = this;
+        
+        if (this.svg) {
+            this.svg.on("mouseover", function() {
+                var mouse = d3.mouse(this),
+                    coords = {x: mouse[0], y: mouse[1]};
+                
+                self.trigger("svg:mouse:over", coords);
+            });
+        
+            this.svg.on("mousemove", function() {
+                var mouse = d3.mouse(this),
+                    coords = {x: mouse[0], y: mouse[1]};
+                
+                self.trigger("svg:mouse:move", coords);
+            });
+        
+            this.svg.on("mouseout", function() {
+                var mouse = d3.mouse(this),
+                    coords = {x: mouse[0], y: mouse[1]};
+                
+                self.trigger("svg:mouse:out", coords);
+            });
+        }
     }
 });
