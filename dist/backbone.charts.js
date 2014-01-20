@@ -302,7 +302,8 @@ Backbone.Charts.ArcChart = Backbone.View.extend({
         width: 400,
         height: 200,
         radius: 100,
-        innerRadius: 0
+        innerRadius: 0,
+        showGradient: false
     },
 
     options: {},
@@ -317,6 +318,16 @@ Backbone.Charts.ArcChart = Backbone.View.extend({
 
         this.setLayout();
         this.setArc();
+
+        // set lightness scale used for gradients
+        this.lightness = d3.scale.linear()
+            .domain([0, this.data.length - 1])
+            .range([0.25, 0.85]);
+    },
+
+    gradient: function(d, i) {
+        var pixVal = Math.round(255 * this.lightness(i));
+        return d3.rgb(pixVal, pixVal, pixVal);
     },
 
     setLayout: function() {
@@ -328,6 +339,15 @@ Backbone.Charts.ArcChart = Backbone.View.extend({
         this.arc = d3.svg.arc()
             .outerRadius(this.radius)
             .innerRadius(this.innerRadius);
+    },
+
+    renderGradient: function() {
+        if (this.svg) {
+            this.svg.selectAll("g.arc path")
+                .attr("fill", this.gradient.bind(this));
+        }
+
+        return this;
     },
 
     render: function() {
@@ -567,47 +587,56 @@ Backbone.Charts = Backbone.Charts || {};
 
 Backbone.Charts.PieChart = Backbone.Charts.ArcChart.extend({
     render: function() {
-        var svg = d3.select(this.el)
+        this.svg = d3.select(this.el)
             .append("svg")
                 .attr("width", this.width)
                 .attr("height", this.height);
-                                        
-        var arcs = svg.selectAll("g.arc")
+
+        var arcs = this.svg.selectAll("g.arc")
             .data(this.layout(this.data))
             .enter()
             .append("g")
             .attr("class", "arc")
             .attr("transform", "translate(" + this.radius + ", " + this.radius + ")");
-                    
+
         arcs.append("path")
             .attr("d", this.arc);
-        
+
+        if (this.showGradient) {
+            this.renderGradient();
+        }
+
         return this;
     }
 });
+
 Backbone.Charts = Backbone.Charts || {};
 
 Backbone.Charts.RingChart = Backbone.Charts.ArcChart.extend({
     options: {
         innerRadius: 50
     },
-    
+
     render: function() {
-        var svg = d3.select(this.el)
+        this.svg = d3.select(this.el)
             .append("svg")
                 .attr("width", this.width)
                 .attr("height", this.height);
-                                        
-        var arcs = svg.selectAll("g.arc")
+
+        var arcs = this.svg.selectAll("g.arc")
             .data(this.layout(this.data))
             .enter()
             .append("g")
             .attr("class", "arc")
             .attr("transform", "translate(" + this.radius + ", " + this.radius + ")");
-                    
+
         arcs.append("path")
             .attr("d", this.arc);
-        
+
+        if (this.showGradient) {
+            this.renderGradient();
+        }
+
         return this;
     }
 });

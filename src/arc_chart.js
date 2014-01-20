@@ -9,7 +9,8 @@ Backbone.Charts.ArcChart = Backbone.View.extend({
         width: 400,
         height: 200,
         radius: 100,
-        innerRadius: 0
+        innerRadius: 0,
+        showGradient: false
     },
 
     options: {},
@@ -24,6 +25,16 @@ Backbone.Charts.ArcChart = Backbone.View.extend({
 
         this.setLayout();
         this.setArc();
+
+        // set lightness scale used for gradients
+        this.lightness = d3.scale.linear()
+            .domain([0, this.data.length - 1])
+            .range([0.25, 0.85]);
+    },
+
+    gradient: function(d, i) {
+        var pixVal = Math.round(255 * this.lightness(i));
+        return d3.rgb(pixVal, pixVal, pixVal);
     },
 
     setLayout: function() {
@@ -35,6 +46,15 @@ Backbone.Charts.ArcChart = Backbone.View.extend({
         this.arc = d3.svg.arc()
             .outerRadius(this.radius)
             .innerRadius(this.innerRadius);
+    },
+
+    renderGradient: function() {
+        if (this.svg) {
+            this.svg.selectAll("g.arc path")
+                .attr("fill", this.gradient.bind(this));
+        }
+
+        return this;
     },
 
     render: function() {
